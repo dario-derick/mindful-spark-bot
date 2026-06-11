@@ -1,29 +1,108 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Brain, Sparkles, BookHeart, MessageCircle, LineChart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "MindTrackAI — Reflective wellness, gently guided" },
+      {
+        name: "description",
+        content:
+          "Track your moods, journal your days, and receive AI-guided wellness insights. A calmer way to care for your mind.",
+      },
+      { property: "og:title", content: "MindTrackAI — Reflective wellness, gently guided" },
+      {
+        property: "og:description",
+        content:
+          "Track your moods, journal your days, and receive AI-guided wellness insights.",
+      },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Landing() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* nav */}
+      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
+        <Link to="/" className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-aurora shadow-glow">
+            <Brain className="h-5 w-5 text-primary-foreground" />
+          </div>
+          <span className="font-display text-lg font-semibold">
+            MindTrack<span className="text-aurora">AI</span>
+          </span>
+        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/auth">
+            <Button variant="ghost" size="sm">Sign in</Button>
+          </Link>
+          <Link to="/auth">
+            <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
+              Get started
+            </Button>
+          </Link>
+        </div>
+      </header>
+
+      {/* hero */}
+      <section className="relative mx-auto max-w-6xl px-6 pt-12 pb-24 md:pt-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
+            <Sparkles className="h-3 w-3 text-accent" />
+            Supporting UN SDG 3 — Good Health & Well-being
+          </div>
+          <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
+            A quieter place
+            <br />
+            to <span className="text-aurora">know yourself</span>.
+          </h1>
+          <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
+            Log a mood in seconds. Journal at your own pace. Let an AI companion notice
+            the patterns you can't — and gently suggest what might help.
+          </p>
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link to="/auth">
+              <Button size="lg" className="bg-aurora text-primary-foreground hover:opacity-90">
+                Start tracking — free
+              </Button>
+            </Link>
+            <Link to="/auth">
+              <Button size="lg" variant="ghost">I already have an account</Button>
+            </Link>
+          </div>
+          <p className="mt-4 text-xs text-muted-foreground">
+            Not a substitute for professional mental health care.
+          </p>
+        </div>
+
+        {/* feature grid */}
+        <div className="mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: BookHeart, title: "Mood & journal", body: "Capture how you feel and what's behind it, in seconds." },
+            { icon: Sparkles, title: "AI reflections", body: "Each entry receives a gentle wellness analysis." },
+            { icon: LineChart, title: "Weekly insights", body: "See patterns across moods, themes, and habits." },
+            { icon: MessageCircle, title: "Wellness coach", body: "Chat with a supportive AI companion any time." },
+          ].map((f) => (
+            <div
+              key={f.title}
+              className="rounded-2xl border border-border/60 bg-card-gradient p-5 shadow-soft backdrop-blur"
+            >
+              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                <f.icon className="h-4 w-4" />
+              </div>
+              <h3 className="mb-1 font-display text-lg">{f.title}</h3>
+              <p className="text-sm text-muted-foreground">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} MindTrackAI · Supporting UN SDG 3
+      </footer>
     </div>
   );
 }
