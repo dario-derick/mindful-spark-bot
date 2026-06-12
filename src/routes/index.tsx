@@ -102,8 +102,18 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} MindTrackAI · Supporting UN SDG 3
+      <footer className="border-t border-border/40 px-6 py-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
+          <span className="text-xs text-muted-foreground">
+            &copy; {new Date().getFullYear()} MindTrackAI &middot; Supporting UN SDG 3
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
+            <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
+            <a href="#" className="transition-colors hover:text-foreground">Terms</a>
+            <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>
+          </div>
+        </div>
       </footer>
     </div>
   );
