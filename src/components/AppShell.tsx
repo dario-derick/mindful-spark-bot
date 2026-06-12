@@ -25,10 +25,10 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
-      {/* sidebar */}
+      {/* sidebar — fixed on all breakpoints */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 w-64 transform border-r border-sidebar-border bg-sidebar/80 backdrop-blur-xl transition-transform md:relative md:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 w-64 transform border-r border-sidebar-border bg-sidebar/80 backdrop-blur-xl transition-transform md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full",
         )}
       >
@@ -72,8 +72,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm md:hidden" onClick={() => setOpen(false)} />
       )}
 
-      {/* main */}
-      <div className="flex min-h-screen flex-1 flex-col">
+      {/* main — offset by sidebar width on desktop */}
+      <div className="flex min-h-screen flex-1 flex-col md:ml-64">
         <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-border/60 bg-background/60 px-4 py-3 backdrop-blur-xl md:hidden">
           <Button size="icon" variant="ghost" onClick={() => setOpen((v) => !v)}>
             <Menu className="h-5 w-5" />
@@ -81,6 +81,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="font-display text-base">MindTrack<span className="text-aurora">AI</span></span>
         </header>
         <main className="flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
+        <footer className="border-t border-border/60 px-4 py-4 text-center text-xs text-muted-foreground md:px-10">
+          &copy; {new Date().getFullYear()} MindTrackAI. Built for wellness.
+        </footer>
       </div>
     </div>
   );
