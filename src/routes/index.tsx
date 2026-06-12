@@ -26,29 +26,31 @@ function Landing() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* nav */}
-      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-aurora shadow-glow">
-            <Brain className="h-5 w-5 text-primary-foreground" />
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-aurora shadow-glow">
+              <Brain className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <span className="font-display text-lg font-semibold">
+              MindTrack<span className="text-aurora">AI</span>
+            </span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Link to="/auth">
+              <Button variant="ghost" size="sm">Sign in</Button>
+            </Link>
+            <Link to="/auth">
+              <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
+                Get started
+              </Button>
+            </Link>
           </div>
-          <span className="font-display text-lg font-semibold">
-            MindTrack<span className="text-aurora">AI</span>
-          </span>
-        </Link>
-        <div className="flex items-center gap-2">
-          <Link to="/auth">
-            <Button variant="ghost" size="sm">Sign in</Button>
-          </Link>
-          <Link to="/auth">
-            <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
-              Get started
-            </Button>
-          </Link>
         </div>
       </header>
 
       {/* hero */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-12 pb-24 md:pt-24">
+      <section className="relative mx-auto max-w-6xl px-6 pt-32 pb-24 md:pt-44">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <Sparkles className="h-3 w-3 text-accent" />
