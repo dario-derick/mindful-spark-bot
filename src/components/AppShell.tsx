@@ -81,8 +81,18 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="font-display text-base">MindTrack<span className="text-aurora">AI</span></span>
         </header>
         <main className="flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
-        <footer className="border-t border-border/60 px-4 py-4 text-center text-xs text-muted-foreground md:px-10">
-          &copy; {new Date().getFullYear()} MindTrackAI. Built for wellness.
+        <footer className="border-t border-border/60 px-4 py-4 md:px-10">
+          <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
+            <span className="text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} MindTrackAI. Built for wellness.
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+              <Link to="/" className="transition-colors hover:text-foreground">Home</Link>
+              <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
+              <a href="#" className="transition-colors hover:text-foreground">Terms</a>
+              <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Support</a>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
