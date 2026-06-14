@@ -4,7 +4,7 @@ import { MarketingShell, SITE_URL } from "@/components/MarketingShell";
 const faqs = [
   {
     q: "Who can see my journal entries?",
-    a: "Only you. Entries are stored against your account and protected with row-level security in our database, so other users — and the rest of the internet — can't read them.",
+    a: "Only you. Entries are stored against your account and protected with row level security in our database, so other users and the rest of the internet can't read them.",
   },
   {
     q: "Do you sell or share my data?",
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/faq")({
       {
         property: "og:description",
         content:
-          "Privacy, data handling, and how MindTrackAI works — answered.",
+          "Privacy, data handling, and how MindTrackAI works, answered.",
       },
       { property: "og:url", content: SITE_URL + "/faq" },
     ],
@@ -72,7 +72,7 @@ function FaqPage() {
           Frequently asked <span className="text-aurora">questions</span>
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
-          Mostly about privacy — because that's what matters most when you're writing things down.
+          Mostly about privacy, because that's what matters most when you're writing things down.
         </p>
       </div>
 

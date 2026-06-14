@@ -29,7 +29,7 @@ const features = [
   {
     icon: BookHeart,
     title: "Daily mood tracking",
-    body: "Log how you feel in seconds with a gentle mood picker. No friction, no judgment — just a quiet check-in.",
+    body: "Log how you feel in seconds with a gentle mood picker. No friction, no judgment, just a quiet check in.",
   },
   {
     icon: Sparkles,
@@ -39,7 +39,7 @@ const features = [
   {
     icon: LineChart,
     title: "Weekly insights",
-    body: "See your mood patterns, recurring themes, and small wins across the week — visualised clearly and calmly.",
+    body: "See your mood patterns, recurring themes, and small wins across the week, visualised clearly and calmly.",
   },
   {
     icon: MessageCircle,
@@ -49,12 +49,12 @@ const features = [
   {
     icon: Lock,
     title: "Private by design",
-    body: "Your entries are scoped to your account with row-level security. You own what you write.",
+    body: "Your entries are scoped to your account with row level security. You own what you write.",
   },
   {
     icon: Moon,
     title: "Twilight serenity UI",
-    body: "A dark, low-stimulation interface designed to feel like a calm evening — not another loud productivity app.",
+    body: "A dark, low stimulation interface designed to feel like a calm evening, not another loud productivity app.",
   },
 ];
 
@@ -94,7 +94,7 @@ function FeaturesPage() {
         <div className="mt-5">
           <Link to="/auth">
             <Button size="lg" className="bg-aurora text-primary-foreground hover:opacity-90">
-              Get started — it's free
+              Get started, it's free
             </Button>
           </Link>
         </div>
