@@ -6,3 +6,5 @@ Disallow: /insights
 Disallow: /coach
 Disallow: /profile
 Disallow: /auth
+
+Sitemap: https://mindful-spark-bot.lovable.app/sitemap.xml
