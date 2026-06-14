@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Brain, Sparkles, BookHeart, MessageCircle, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const SITE_URL = "https://mindful-spark-bot.lovable.app";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -16,6 +18,39 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content:
           "Track your moods, journal your days, and receive AI-guided wellness insights.",
+      },
+      { property: "og:url", content: SITE_URL + "/" },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": SITE_URL + "/#org",
+              name: "MindTrackAI",
+              url: SITE_URL,
+              description: "AI-guided mood tracking, journaling, and wellness insights.",
+            },
+            {
+              "@type": "WebSite",
+              "@id": SITE_URL + "/#website",
+              url: SITE_URL,
+              name: "MindTrackAI",
+              publisher: { "@id": SITE_URL + "/#org" },
+            },
+            {
+              "@type": "SoftwareApplication",
+              name: "MindTrackAI",
+              applicationCategory: "HealthApplication",
+              operatingSystem: "Web",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            },
+          ],
+        }),
       },
     ],
   }),
@@ -36,7 +71,16 @@ function Landing() {
               MindTrack<span className="text-aurora">AI</span>
             </span>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <Link to="/features" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">Features</Button>
+            </Link>
+            <Link to="/pricing" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">Pricing</Button>
+            </Link>
+            <Link to="/faq" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">FAQ</Button>
+            </Link>
             <Link to="/auth">
               <Button variant="ghost" size="sm">Sign in</Button>
             </Link>
@@ -108,9 +152,10 @@ function Landing() {
             &copy; {new Date().getFullYear()} MindTrackAI &middot; Supporting UN SDG 3
           </span>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <Link to="/features" className="transition-colors hover:text-foreground">Features</Link>
+            <Link to="/pricing" className="transition-colors hover:text-foreground">Pricing</Link>
+            <Link to="/faq" className="transition-colors hover:text-foreground">FAQ</Link>
             <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
-            <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
-            <a href="#" className="transition-colors hover:text-foreground">Terms</a>
             <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>
           </div>
         </div>
