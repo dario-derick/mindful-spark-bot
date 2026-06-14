@@ -28,7 +28,7 @@ export const Route = createFileRoute("/pricing")({
           "@context": "https://schema.org",
           "@type": "Product",
           name: "MindTrackAI",
-          description: "AI-guided mood tracking, journaling, and wellness insights.",
+          description: "AI guided mood tracking, journaling, and wellness insights.",
           offers: {
             "@type": "Offer",
             price: "0",
@@ -49,7 +49,7 @@ const features = [
   "AI reflection on every entry",
   "Weekly insights & patterns",
   "Rolling wellness coach chat",
-  "Private by design (row-level security)",
+  "Private by design (row level security)",
 ];
 
 function PricingPage() {
@@ -81,7 +81,7 @@ function PricingPage() {
           <div className="mt-8">
             <Link to="/auth">
               <Button className="w-full bg-aurora text-primary-foreground hover:opacity-90">
-                Get started — free
+                Get started, free
               </Button>
             </Link>
           </div>
