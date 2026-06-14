@@ -152,9 +152,10 @@ function Landing() {
             &copy; {new Date().getFullYear()} MindTrackAI &middot; Supporting UN SDG 3
           </span>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+            <Link to="/features" className="transition-colors hover:text-foreground">Features</Link>
+            <Link to="/pricing" className="transition-colors hover:text-foreground">Pricing</Link>
+            <Link to="/faq" className="transition-colors hover:text-foreground">FAQ</Link>
             <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
-            <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
-            <a href="#" className="transition-colors hover:text-foreground">Terms</a>
             <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>
           </div>
         </div>
