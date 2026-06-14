@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Brain, Sparkles, BookHeart, MessageCircle, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const SITE_URL = "https://mindful-spark-bot.lovable.app";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -16,6 +18,39 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content:
           "Track your moods, journal your days, and receive AI-guided wellness insights.",
+      },
+      { property: "og:url", content: SITE_URL + "/" },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": SITE_URL + "/#org",
+              name: "MindTrackAI",
+              url: SITE_URL,
+              description: "AI-guided mood tracking, journaling, and wellness insights.",
+            },
+            {
+              "@type": "WebSite",
+              "@id": SITE_URL + "/#website",
+              url: SITE_URL,
+              name: "MindTrackAI",
+              publisher: { "@id": SITE_URL + "/#org" },
+            },
+            {
+              "@type": "SoftwareApplication",
+              name: "MindTrackAI",
+              applicationCategory: "HealthApplication",
+              operatingSystem: "Web",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            },
+          ],
+        }),
       },
     ],
   }),
