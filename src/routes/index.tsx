@@ -71,7 +71,16 @@ function Landing() {
               MindTrack<span className="text-aurora">AI</span>
             </span>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <Link to="/features" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">Features</Button>
+            </Link>
+            <Link to="/pricing" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">Pricing</Button>
+            </Link>
+            <Link to="/faq" className="hidden sm:inline-flex">
+              <Button variant="ghost" size="sm">FAQ</Button>
+            </Link>
             <Link to="/auth">
               <Button variant="ghost" size="sm">Sign in</Button>
             </Link>
