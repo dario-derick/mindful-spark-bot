@@ -48,6 +48,8 @@ export function MarketingShell({ children }: { children: ReactNode }) {
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
             <Link to="/features" className="transition-colors hover:text-foreground">Features</Link>
             <Link to="/pricing" className="transition-colors hover:text-foreground">Pricing</Link>
+            <Link to="/about" className="transition-colors hover:text-foreground">About</Link>
+            <Link to="/blog" className="transition-colors hover:text-foreground">Blog</Link>
             <Link to="/faq" className="transition-colors hover:text-foreground">FAQ</Link>
             <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
             <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>

@@ -3,6 +3,10 @@ import { MarketingShell, SITE_URL } from "@/components/MarketingShell";
 
 const faqs = [
   {
+    q: "What should I use MindTrackAI for?",
+    a: "Use MindTrackAI for private reflection: logging moods, writing journal entries, asking for gentle AI reflections, and noticing weekly patterns. Do not use it for diagnosis, treatment, crisis support, or emergency care. If you are struggling or feel unsafe, contact a qualified professional, emergency services, or a local crisis line.",
+  },
+  {
     q: "Who can see my journal entries?",
     a: "Only you. Entries are stored against your account and protected with row level security in our database, so other users and the rest of the internet can't read them.",
   },
@@ -40,8 +44,7 @@ export const Route = createFileRoute("/faq")({
       { property: "og:title", content: "FAQ — MindTrackAI" },
       {
         property: "og:description",
-        content:
-          "Privacy, data handling, and how MindTrackAI works, answered.",
+        content: "Privacy, data handling, and how MindTrackAI works, answered.",
       },
       { property: "og:url", content: SITE_URL + "/faq" },
     ],
@@ -85,7 +88,9 @@ function FaqPage() {
             <summary className="cursor-pointer list-none font-display text-lg marker:hidden">
               <span className="flex items-start justify-between gap-4">
                 <span>{f.q}</span>
-                <span className="mt-1 select-none text-muted-foreground transition-transform group-open:rotate-45">+</span>
+                <span className="mt-1 select-none text-muted-foreground transition-transform group-open:rotate-45">
+                  +
+                </span>
               </span>
             </summary>
             <p className="mt-3 text-sm text-muted-foreground">{f.a}</p>
@@ -94,7 +99,11 @@ function FaqPage() {
       </div>
 
       <p className="mt-12 text-center text-xs text-muted-foreground">
-        Still have a question? Email <a className="underline hover:text-foreground" href="mailto:hello@mindtrackai.app">hello@mindtrackai.app</a>.
+        Still have a question? Email{" "}
+        <a className="underline hover:text-foreground" href="mailto:hello@mindtrackai.app">
+          hello@mindtrackai.app
+        </a>
+        .
       </p>
     </MarketingShell>
   );
