@@ -16,8 +16,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "MindTrackAI — Reflective wellness, gently guided" },
       {
         property: "og:description",
-        content:
-          "Track your moods, journal your days, and receive AI guided wellness insights.",
+        content: "Track your moods, journal your days, and receive AI guided wellness insights.",
       },
       { property: "og:url", content: SITE_URL + "/" },
     ],
@@ -73,16 +72,24 @@ function Landing() {
           </Link>
           <div className="flex items-center gap-1 sm:gap-2">
             <Link to="/features" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Features</Button>
+              <Button variant="ghost" size="sm">
+                Features
+              </Button>
             </Link>
             <Link to="/pricing" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Pricing</Button>
+              <Button variant="ghost" size="sm">
+                Pricing
+              </Button>
             </Link>
             <Link to="/faq" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">FAQ</Button>
+              <Button variant="ghost" size="sm">
+                FAQ
+              </Button>
             </Link>
             <Link to="/auth">
-              <Button variant="ghost" size="sm">Sign in</Button>
+              <Button variant="ghost" size="sm">
+                Sign in
+              </Button>
             </Link>
             <Link to="/auth">
               <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
@@ -106,8 +113,8 @@ function Landing() {
             to <span className="text-aurora">know yourself</span>.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
-            Log a mood in seconds. Journal at your own pace. Let an AI companion notice
-            the patterns you can't and gently suggest what might help.
+            Log a mood in seconds. Journal at your own pace. Let an AI companion notice the patterns
+            you can't and gently suggest what might help.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link to="/auth">
@@ -116,7 +123,9 @@ function Landing() {
               </Button>
             </Link>
             <Link to="/auth">
-              <Button size="lg" variant="ghost">I already have an account</Button>
+              <Button size="lg" variant="ghost">
+                I already have an account
+              </Button>
             </Link>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
@@ -127,10 +136,26 @@ function Landing() {
         {/* feature grid */}
         <div className="mt-20 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: BookHeart, title: "Mood & journal", body: "Capture how you feel and what's behind it, in seconds." },
-            { icon: Sparkles, title: "AI reflections", body: "Each entry receives a gentle wellness analysis." },
-            { icon: LineChart, title: "Weekly insights", body: "See patterns across moods, themes, and habits." },
-            { icon: MessageCircle, title: "Wellness coach", body: "Chat with a supportive AI companion any time." },
+            {
+              icon: BookHeart,
+              title: "Mood & journal",
+              body: "Capture how you feel and what's behind it, in seconds.",
+            },
+            {
+              icon: Sparkles,
+              title: "AI reflections",
+              body: "Each entry receives a gentle wellness analysis.",
+            },
+            {
+              icon: LineChart,
+              title: "Weekly insights",
+              body: "See patterns across moods, themes, and habits.",
+            },
+            {
+              icon: MessageCircle,
+              title: "Wellness coach",
+              body: "Chat with a supportive AI companion any time.",
+            },
           ].map((f) => (
             <div
               key={f.title}
@@ -152,11 +177,36 @@ function Landing() {
             &copy; {new Date().getFullYear()} MindTrackAI &middot; Supporting UN SDG 3
           </span>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-            <Link to="/features" className="transition-colors hover:text-foreground">Features</Link>
-            <Link to="/pricing" className="transition-colors hover:text-foreground">Pricing</Link>
-            <Link to="/faq" className="transition-colors hover:text-foreground">FAQ</Link>
-            <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
-            <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>
+            <Link to="/features" className="transition-colors hover:text-foreground">
+              Features
+            </Link>
+            <Link to="/pricing" className="transition-colors hover:text-foreground">
+              Pricing
+            </Link>
+            <Link to="/faq" className="transition-colors hover:text-foreground">
+              FAQ
+            </Link>
+            <Link to="/private-mood-tracker" className="transition-colors hover:text-foreground">
+              Private mood tracker
+            </Link>
+            <Link
+              to="/weekly-reflection-template"
+              className="transition-colors hover:text-foreground"
+            >
+              Weekly reflection
+            </Link>
+            <Link to="/not-therapy" className="transition-colors hover:text-foreground">
+              Not therapy
+            </Link>
+            <Link to="/auth" className="transition-colors hover:text-foreground">
+              Sign in
+            </Link>
+            <a
+              href="mailto:hello@mindtrackai.app"
+              className="transition-colors hover:text-foreground"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </footer>
