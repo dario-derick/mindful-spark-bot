@@ -17,23 +17,21 @@ export function MarketingShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <div className="flex items-center gap-1 sm:gap-2">
-            <Link to="/features" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Features</Button>
-            </Link>
-            <Link to="/pricing" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Pricing</Button>
-            </Link>
-            <Link to="/faq" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">FAQ</Button>
-            </Link>
-            <Link to="/auth">
-              <Button variant="ghost" size="sm">Sign in</Button>
-            </Link>
-            <Link to="/auth">
-              <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
-                Get started
-              </Button>
-            </Link>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/features">Features</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/pricing">Pricing</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/faq">FAQ</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/auth">Sign in</Link>
+            </Button>
+            <Button asChild size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
+              <Link to="/auth">Get started</Link>
+            </Button>
           </div>
         </div>
       </header>
