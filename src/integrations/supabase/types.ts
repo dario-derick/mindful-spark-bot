@@ -131,6 +131,10 @@ export type Database = {
           created_at: string
           display_name: string | null
           id: string
+          onboarding_intent: string | null
+          onboarding_intent_other_text: string | null
+          onboarding_intent_selected_at: string | null
+          onboarding_prompt_version: string | null
           updated_at: string
         }
         Insert: {
@@ -138,6 +142,10 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id: string
+          onboarding_intent?: string | null
+          onboarding_intent_other_text?: string | null
+          onboarding_intent_selected_at?: string | null
+          onboarding_prompt_version?: string | null
           updated_at?: string
         }
         Update: {
@@ -145,6 +153,10 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
+          onboarding_intent?: string | null
+          onboarding_intent_other_text?: string | null
+          onboarding_intent_selected_at?: string | null
+          onboarding_prompt_version?: string | null
           updated_at?: string
         }
         Relationships: []
