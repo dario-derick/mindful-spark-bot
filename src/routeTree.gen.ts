@@ -9,8 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeeklyReflectionTemplateRouteImport } from './routes/weekly-reflection-template'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PrivateMoodTrackerRouteImport } from './routes/private-mood-tracker'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as NotTherapyRouteImport } from './routes/not-therapy'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -25,14 +28,30 @@ import { Route as AuthenticatedCoachRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedJournalIndexRouteImport } from './routes/_authenticated/journal.index'
 import { Route as AuthenticatedJournalIdRouteImport } from './routes/_authenticated/journal.$id'
 
+const WeeklyReflectionTemplateRoute =
+  WeeklyReflectionTemplateRouteImport.update({
+    id: '/weekly-reflection-template',
+    path: '/weekly-reflection-template',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivateMoodTrackerRoute = PrivateMoodTrackerRouteImport.update({
+  id: '/private-mood-tracker',
+  path: '/private-mood-tracker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotTherapyRoute = NotTherapyRouteImport.update({
+  id: '/not-therapy',
+  path: '/not-therapy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeaturesRoute = FeaturesRouteImport.update({
@@ -106,8 +125,11 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
+  '/not-therapy': typeof NotTherapyRoute
   '/pricing': typeof PricingRoute
+  '/private-mood-tracker': typeof PrivateMoodTrackerRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weekly-reflection-template': typeof WeeklyReflectionTemplateRoute
   '/coach': typeof AuthenticatedCoachRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -122,8 +144,11 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
+  '/not-therapy': typeof NotTherapyRoute
   '/pricing': typeof PricingRoute
+  '/private-mood-tracker': typeof PrivateMoodTrackerRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weekly-reflection-template': typeof WeeklyReflectionTemplateRoute
   '/coach': typeof AuthenticatedCoachRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -139,8 +164,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
+  '/not-therapy': typeof NotTherapyRoute
   '/pricing': typeof PricingRoute
+  '/private-mood-tracker': typeof PrivateMoodTrackerRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/weekly-reflection-template': typeof WeeklyReflectionTemplateRoute
   '/_authenticated/coach': typeof AuthenticatedCoachRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
@@ -157,8 +185,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/features'
+    | '/not-therapy'
     | '/pricing'
+    | '/private-mood-tracker'
     | '/sitemap.xml'
+    | '/weekly-reflection-template'
     | '/coach'
     | '/dashboard'
     | '/insights'
@@ -173,8 +204,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/features'
+    | '/not-therapy'
     | '/pricing'
+    | '/private-mood-tracker'
     | '/sitemap.xml'
+    | '/weekly-reflection-template'
     | '/coach'
     | '/dashboard'
     | '/insights'
@@ -189,8 +223,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/features'
+    | '/not-therapy'
     | '/pricing'
+    | '/private-mood-tracker'
     | '/sitemap.xml'
+    | '/weekly-reflection-template'
     | '/_authenticated/coach'
     | '/_authenticated/dashboard'
     | '/_authenticated/insights'
@@ -207,13 +244,23 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   FaqRoute: typeof FaqRoute
   FeaturesRoute: typeof FeaturesRoute
+  NotTherapyRoute: typeof NotTherapyRoute
   PricingRoute: typeof PricingRoute
+  PrivateMoodTrackerRoute: typeof PrivateMoodTrackerRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WeeklyReflectionTemplateRoute: typeof WeeklyReflectionTemplateRoute
   ApiChatRoute: typeof ApiChatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/weekly-reflection-template': {
+      id: '/weekly-reflection-template'
+      path: '/weekly-reflection-template'
+      fullPath: '/weekly-reflection-template'
+      preLoaderRoute: typeof WeeklyReflectionTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -221,11 +268,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/private-mood-tracker': {
+      id: '/private-mood-tracker'
+      path: '/private-mood-tracker'
+      fullPath: '/private-mood-tracker'
+      preLoaderRoute: typeof PrivateMoodTrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pricing': {
       id: '/pricing'
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/not-therapy': {
+      id: '/not-therapy'
+      path: '/not-therapy'
+      fullPath: '/not-therapy'
+      preLoaderRoute: typeof NotTherapyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/features': {
@@ -360,10 +421,23 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   FaqRoute: FaqRoute,
   FeaturesRoute: FeaturesRoute,
+  NotTherapyRoute: NotTherapyRoute,
   PricingRoute: PricingRoute,
+  PrivateMoodTrackerRoute: PrivateMoodTrackerRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WeeklyReflectionTemplateRoute: WeeklyReflectionTemplateRoute,
   ApiChatRoute: ApiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

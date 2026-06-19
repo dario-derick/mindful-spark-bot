@@ -8,6 +8,9 @@ const entries = [
   { path: "/features", changefreq: "monthly", priority: "0.8" },
   { path: "/pricing", changefreq: "monthly", priority: "0.8" },
   { path: "/faq", changefreq: "monthly", priority: "0.7" },
+  { path: "/private-mood-tracker", changefreq: "monthly", priority: "0.7" },
+  { path: "/weekly-reflection-template", changefreq: "monthly", priority: "0.7" },
+  { path: "/not-therapy", changefreq: "monthly", priority: "0.7" },
 ];
 
 export const Route = createFileRoute("/sitemap.xml")({
