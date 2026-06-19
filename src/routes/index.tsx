@@ -72,29 +72,27 @@ function Landing() {
             </span>
           </Link>
           <div className="flex items-center gap-1 sm:gap-2">
-            <Link to="/features" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Features</Button>
-            </Link>
-            <Link to="/pricing" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">Pricing</Button>
-            </Link>
-            <Link to="/faq" className="hidden sm:inline-flex">
-              <Button variant="ghost" size="sm">FAQ</Button>
-            </Link>
-            <Link to="/auth">
-              <Button variant="ghost" size="sm">Sign in</Button>
-            </Link>
-            <Link to="/auth">
-              <Button size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
-                Get started
-              </Button>
-            </Link>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/features">Features</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/pricing">Pricing</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/faq">FAQ</Link>
+            </Button>
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/auth">Sign in</Link>
+            </Button>
+            <Button asChild size="sm" className="bg-aurora text-primary-foreground hover:opacity-90">
+              <Link to="/auth">Get started</Link>
+            </Button>
           </div>
         </div>
       </header>
 
       {/* hero */}
-      <section className="relative mx-auto max-w-6xl px-6 pt-32 pb-24 md:pt-44">
+      <main className="relative mx-auto max-w-6xl px-6 pt-32 pb-24 md:pt-44">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <Sparkles className="h-3 w-3 text-accent" />
@@ -110,14 +108,12 @@ function Landing() {
             the patterns you can't and gently suggest what might help.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/auth">
-              <Button size="lg" className="bg-aurora text-primary-foreground hover:opacity-90">
-                Start tracking, free
-              </Button>
-            </Link>
-            <Link to="/auth">
-              <Button size="lg" variant="ghost">I already have an account</Button>
-            </Link>
+            <Button asChild size="lg" className="bg-aurora text-primary-foreground hover:opacity-90">
+              <Link to="/auth">Start tracking, free</Link>
+            </Button>
+            <Button asChild size="lg" variant="ghost">
+              <Link to="/auth">I already have an account</Link>
+            </Button>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
             Not a substitute for professional mental health care.
@@ -144,7 +140,7 @@ function Landing() {
             </div>
           ))}
         </div>
-      </section>
+      </main>
 
       <footer className="border-t border-border/40 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
