@@ -1,5 +1,14 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Brain, LayoutDashboard, BookHeart, Sparkles, MessageCircle, UserRound, LogOut, Menu } from "lucide-react";
+import {
+  Brain,
+  LayoutDashboard,
+  BookHeart,
+  Sparkles,
+  MessageCircle,
+  UserRound,
+  LogOut,
+  Menu,
+} from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -8,7 +17,7 @@ import { cn } from "@/lib/utils";
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/journal", label: "Journal", icon: BookHeart },
-  { to: "/insights", label: "Insights", icon: Sparkles },
+  { to: "/insights", label: "Reflection", icon: Sparkles },
   { to: "/coach", label: "Coach", icon: MessageCircle },
   { to: "/profile", label: "Profile", icon: UserRound },
 ] as const;
@@ -37,7 +46,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-aurora shadow-glow">
               <Brain className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="font-display text-lg font-semibold">MindTrack<span className="text-aurora">AI</span></span>
+            <span className="font-display text-lg font-semibold">
+              MindTrack<span className="text-aurora">AI</span>
+            </span>
           </Link>
           <nav className="flex flex-col gap-1">
             {NAV.map(({ to, label, icon: Icon }) => {
@@ -69,7 +80,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       {open && (
-        <div className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm md:hidden" onClick={() => setOpen(false)} />
+        <div
+          className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm md:hidden"
+          onClick={() => setOpen(false)}
+        />
       )}
 
       {/* main — offset by sidebar width on desktop */}
@@ -78,7 +92,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Button size="icon" variant="ghost" onClick={() => setOpen((v) => !v)}>
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="font-display text-base">MindTrack<span className="text-aurora">AI</span></span>
+          <span className="font-display text-base">
+            MindTrack<span className="text-aurora">AI</span>
+          </span>
         </header>
         <main className="flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
         <footer className="border-t border-border/60 px-4 py-4 md:px-10">
@@ -87,10 +103,21 @@ export function AppShell({ children }: { children: ReactNode }) {
               &copy; {new Date().getFullYear()} MindTrackAI. Built for wellness.
             </span>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-              <Link to="/" className="transition-colors hover:text-foreground">Home</Link>
-              <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
-              <a href="#" className="transition-colors hover:text-foreground">Terms</a>
-              <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Support</a>
+              <Link to="/" className="transition-colors hover:text-foreground">
+                Home
+              </Link>
+              <a href="#" className="transition-colors hover:text-foreground">
+                Privacy
+              </a>
+              <a href="#" className="transition-colors hover:text-foreground">
+                Terms
+              </a>
+              <a
+                href="mailto:hello@mindtrackai.app"
+                className="transition-colors hover:text-foreground"
+              >
+                Support
+              </a>
             </div>
           </div>
         </footer>
