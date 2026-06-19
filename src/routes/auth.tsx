@@ -89,25 +89,46 @@ function AuthPage() {
               {mode === "signup" && (
                 <div className="space-y-1.5">
                   <Label htmlFor="name">Display name</Label>
-                  <Input id="name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} maxLength={60} />
+                  <Input
+                    id="name"
+                    name="name"
+                    autoComplete="name"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    maxLength={60}
+                  />
                 </div>
               )}
               <div className="space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
+                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
                   required
                   minLength={8}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-aurora text-primary-foreground hover:opacity-90">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-aurora text-primary-foreground hover:opacity-90"
+              >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {mode === "signin" ? "Sign in" : "Create account"}
               </Button>
@@ -117,7 +138,9 @@ function AuthPage() {
               onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
               className="mt-5 w-full text-center text-sm text-muted-foreground hover:text-foreground"
             >
-              {mode === "signin" ? "New here? Create an account" : "Already have an account? Sign in"}
+              {mode === "signin"
+                ? "New here? Create an account"
+                : "Already have an account? Sign in"}
             </button>
           </CardContent>
         </Card>
