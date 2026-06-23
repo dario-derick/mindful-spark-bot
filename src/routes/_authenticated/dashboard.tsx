@@ -19,6 +19,7 @@ import {
 } from "recharts";
 import { Flame, BookHeart, TrendingUp, Heart, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { trackFirstCheckInCompleted } from "@/lib/analytics";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — MindTrackAI" }] }),
@@ -44,9 +45,12 @@ function DashboardPage() {
   });
 
   const mutation = useMutation({
-    mutationFn: (v: { mood: MoodLevel; notes?: string; tags?: string[] }) =>
-      logMood({ data: v }),
-    onSuccess: () => {
+    mutationFn: (v: { mood: MoodLevel; notes?: string; tags?: string[] }) => logMood({ data: v }),
+    onSuccess: (row) => {
+      trackFirstCheckInCompleted({
+        userId: row.user_id,
+        isFirstForUser: row.is_first_for_user,
+      });
       toast.success("Mood logged");
       qc.invalidateQueries({ queryKey: ["dashboard"] });
     },
@@ -65,9 +69,7 @@ function DashboardPage() {
     <div className="mx-auto max-w-6xl space-y-8">
       <div>
         <h1 className="font-display text-3xl md:text-4xl">Today</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          A gentle look at where you've been.
-        </p>
+        <p className="mt-1 text-sm text-muted-foreground">A gentle look at where you've been.</p>
       </div>
 
       {/* stats */}
@@ -144,10 +146,16 @@ function DashboardPage() {
           <CardContent>
             <div className="h-64 w-full">
               <ResponsiveContainer>
-                <BarChart data={data.distribution.map((d) => ({ ...d, label: MOOD_LABEL[d.mood] }))}>
+                <BarChart
+                  data={data.distribution.map((d) => ({ ...d, label: MOOD_LABEL[d.mood] }))}
+                >
                   <CartesianGrid stroke="var(--color-border)" strokeDasharray="3 3" />
                   <XAxis dataKey="label" stroke="var(--color-muted-foreground)" fontSize={11} />
-                  <YAxis stroke="var(--color-muted-foreground)" fontSize={12} allowDecimals={false} />
+                  <YAxis
+                    stroke="var(--color-muted-foreground)"
+                    fontSize={12}
+                    allowDecimals={false}
+                  />
                   <Tooltip
                     contentStyle={{
                       background: "var(--color-popover)",
@@ -174,10 +182,7 @@ function DashboardPage() {
             <CardDescription>A quick mood log.</CardDescription>
           </CardHeader>
           <CardContent>
-            <MoodPicker
-              submitting={mutation.isPending}
-              onSubmit={(v) => mutation.mutate(v)}
-            />
+            <MoodPicker submitting={mutation.isPending} onSubmit={(v) => mutation.mutate(v)} />
           </CardContent>
         </Card>
 
@@ -210,9 +215,7 @@ function DashboardPage() {
                       day: "numeric",
                     })}
                   </div>
-                  <div className="mt-1 line-clamp-2 text-sm">
-                    {j.summary ?? "Entry"}
-                  </div>
+                  <div className="mt-1 line-clamp-2 text-sm">{j.summary ?? "Entry"}</div>
                 </Link>
               ))
             )}

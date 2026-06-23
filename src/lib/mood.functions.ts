@@ -45,6 +45,11 @@ export const createMoodEntry = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data, context }) => {
+    const { count: existingMoodCount, error: countError } = await context.supabase
+      .from("mood_entries")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", context.userId);
+
     const { data: row, error } = await context.supabase
       .from("mood_entries")
       .insert({
@@ -56,5 +61,8 @@ export const createMoodEntry = createServerFn({ method: "POST" })
       .select()
       .single();
     if (error) throw new Error(error.message);
-    return row;
+    return {
+      ...row,
+      is_first_for_user: !countError && (existingMoodCount ?? 0) === 0,
+    };
   });

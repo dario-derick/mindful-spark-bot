@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { trackSignupCompleted, trackSignupModeOpened } from "@/lib/analytics";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -38,7 +39,7 @@ function AuthPage() {
     setLoading(true);
     try {
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -47,6 +48,7 @@ function AuthPage() {
           },
         });
         if (error) throw error;
+        trackSignupCompleted(data.user?.id);
         toast.success("Account created. Welcome!");
         navigate({ to: "/dashboard", replace: true });
       } else {
@@ -89,12 +91,23 @@ function AuthPage() {
               {mode === "signup" && (
                 <div className="space-y-1.5">
                   <Label htmlFor="name">Display name</Label>
-                  <Input id="name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} maxLength={60} />
+                  <Input
+                    id="name"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    maxLength={60}
+                  />
                 </div>
               )}
               <div className="space-y-1.5">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
@@ -107,17 +120,27 @@ function AuthPage() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-aurora text-primary-foreground hover:opacity-90">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-aurora text-primary-foreground hover:opacity-90"
+              >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {mode === "signin" ? "Sign in" : "Create account"}
               </Button>
             </form>
             <button
               type="button"
-              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+              onClick={() => {
+                const nextMode = mode === "signin" ? "signup" : "signin";
+                setMode(nextMode);
+                if (nextMode === "signup") trackSignupModeOpened();
+              }}
               className="mt-5 w-full text-center text-sm text-muted-foreground hover:text-foreground"
             >
-              {mode === "signin" ? "New here? Create an account" : "Already have an account? Sign in"}
+              {mode === "signin"
+                ? "New here? Create an account"
+                : "Already have an account? Sign in"}
             </button>
           </CardContent>
         </Card>
