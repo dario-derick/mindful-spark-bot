@@ -156,7 +156,7 @@ function Landing() {
             <Link to="/pricing" className="transition-colors hover:text-foreground">Pricing</Link>
             <Link to="/faq" className="transition-colors hover:text-foreground">FAQ</Link>
             <Link to="/auth" className="transition-colors hover:text-foreground">Sign in</Link>
-            <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Contact</a>
+            <a href="mailto:mindful-spark-bot@support.tin.computer" className="transition-colors hover:text-foreground">Contact</a>
           </div>
         </div>
       </footer>
