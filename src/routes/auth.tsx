@@ -93,6 +93,8 @@ function AuthPage() {
                   <Label htmlFor="name">Display name</Label>
                   <Input
                     id="name"
+                    name="name"
+                    autoComplete="name"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                     maxLength={60}
@@ -103,7 +105,9 @@ function AuthPage() {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -113,7 +117,9 @@ function AuthPage() {
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
+                  name="password"
                   type="password"
+                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
                   required
                   minLength={8}
                   value={password}
