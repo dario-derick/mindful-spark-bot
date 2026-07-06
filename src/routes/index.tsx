@@ -9,16 +9,17 @@ const SITE_URL = "https://mindful-spark-bot.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MindTrackAI — Reflective wellness, gently guided" },
+      { title: "MindTrackAI | Private Mood Tracking & Weekly Reflections" },
       {
         name: "description",
         content:
-          "Track your moods, journal your days, and receive AI guided wellness insights. A calmer way to care for your mind.",
+          "Log moods, journal privately, and see weekly AI reflections that help you notice patterns. Free to start, not a therapy replacement.",
       },
-      { property: "og:title", content: "MindTrackAI — Reflective wellness, gently guided" },
+      { property: "og:title", content: "MindTrackAI | Private Mood Tracking & Weekly Reflections" },
       {
         property: "og:description",
-        content: "Track your moods, journal your days, and receive AI guided wellness insights.",
+        content:
+          "Log moods, journal privately, and see weekly AI reflections that help you notice patterns. Free to start, not a therapy replacement.",
       },
       { property: "og:url", content: SITE_URL + "/" },
     ],
@@ -34,7 +35,7 @@ export const Route = createFileRoute("/")({
               "@id": SITE_URL + "/#org",
               name: "MindTrackAI",
               url: SITE_URL,
-              description: "AI-guided mood tracking, journaling, and wellness insights.",
+              description: "Private mood tracking, journaling, and weekly AI reflections.",
             },
             {
               "@type": "WebSite",
@@ -114,28 +115,27 @@ function Landing() {
             Supporting UN SDG 3: Good Health and Well being
           </div>
           <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight md:text-7xl">
-            A quieter place
-            <br />
-            to <span className="text-aurora">know yourself</span>.
+            MindTrackAI helps you notice
+            <span className="text-aurora"> the patterns behind your moods</span>.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
-            Log a mood in seconds. Journal at your own pace. Let an AI companion notice the patterns
-            you can't and gently suggest what might help.
+            Log a quick mood, write what happened, and get gentle AI reflections that turn scattered
+            notes into a weekly picture.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link to="/auth" onClick={() => trackAccountStartClicked("hero_start_tracking")}>
               <Button size="lg" className="bg-aurora text-primary-foreground hover:opacity-90">
-                Start tracking, free
+                Start your first free check-in
               </Button>
             </Link>
             <Link to="/auth">
               <Button size="lg" variant="ghost">
-                I already have an account
+                Sign in
               </Button>
             </Link>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            Not a substitute for professional mental health care.
+            MindTrackAI is for private reflection, not diagnosis or professional mental health care.
           </p>
         </div>
 
