@@ -42,7 +42,12 @@ export const getDashboardData = createServerFn({ method: "GET" })
     const since = new Date();
     since.setDate(since.getDate() - 30);
 
-    const [{ data: moods }, { data: journals }] = await Promise.all([
+    const [
+      { data: moods, error: moodsError },
+      { data: journals, error: journalsError },
+      { data: profile, error: profileError },
+      { count: totalMoodCount, error: totalMoodCountError },
+    ] = await Promise.all([
       context.supabase
         .from("mood_entries")
         .select("id, mood, notes, created_at")
@@ -53,7 +58,19 @@ export const getDashboardData = createServerFn({ method: "GET" })
         .select("id, summary, created_at")
         .order("created_at", { ascending: false })
         .limit(50),
+      context.supabase
+        .from("profiles")
+        .select(
+          "onboarding_intent, onboarding_intent_other_text, onboarding_intent_selected_at, onboarding_prompt_version",
+        )
+        .eq("id", context.userId)
+        .maybeSingle(),
+      context.supabase.from("mood_entries").select("id", { count: "exact", head: true }),
     ]);
+    if (moodsError) throw new Error(moodsError.message);
+    if (journalsError) throw new Error(journalsError.message);
+    if (profileError) throw new Error(profileError.message);
+    if (totalMoodCountError) throw new Error(totalMoodCountError.message);
 
     const moodList = moods ?? [];
     const journalList = journals ?? [];
@@ -72,9 +89,7 @@ export const getDashboardData = createServerFn({ method: "GET" })
 
     // Wellness score (0-100): blend mood avg, journal frequency, mood consistency
     const moodConsistency = Math.min(weekMoods.length / 7, 1);
-    const journalsThisWeek = journalList.filter(
-      (j) => new Date(j.created_at) >= weekAgo,
-    ).length;
+    const journalsThisWeek = journalList.filter((j) => new Date(j.created_at) >= weekAgo).length;
     const journalFreq = Math.min(journalsThisWeek / 4, 1);
     const moodComponent = weeklyAvg / 5;
     const wellnessScore = Math.round(
@@ -124,5 +139,7 @@ export const getDashboardData = createServerFn({ method: "GET" })
       distribution,
       recentJournals: journalList.slice(0, 5),
       recentMoods: [...moodList].reverse().slice(0, 5),
+      profile,
+      hasLoggedAnyMood: (totalMoodCount ?? 0) > 0,
     };
   });
