@@ -181,6 +181,10 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <span className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} MindTrackAI &middot; Supporting UN SDG 3
+            &middot;{" "}
+            <a href="https://tin.computer" className="transition-colors hover:text-foreground">
+              Growth by Tin
+            </a>
           </span>
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
             <Link to="/features" className="transition-colors hover:text-foreground">
@@ -196,7 +200,7 @@ function Landing() {
               Sign in
             </Link>
             <a
-              href="mailto:hello@mindtrackai.app"
+              href="mailto:mindful-spark-bot@mail.tin.computer"
               className="transition-colors hover:text-foreground"
             >
               Contact

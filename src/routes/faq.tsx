@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "Can I delete my data?",
-    a: "Yes. You can delete individual journal entries any time. To delete your full account and all associated data, email hello@mindtrackai.app and we'll process the request promptly.",
+    a: "Yes. You can delete individual journal entries any time. To delete your full account and all associated data, email mindful-spark-bot@mail.tin.computer and we'll process the request promptly.",
   },
   {
     q: "Is MindTrackAI a replacement for therapy?",
@@ -94,7 +94,7 @@ function FaqPage() {
       </div>
 
       <p className="mt-12 text-center text-xs text-muted-foreground">
-        Still have a question? Email <a className="underline hover:text-foreground" href="mailto:hello@mindtrackai.app">hello@mindtrackai.app</a>.
+        Still have a question? Email <a className="underline hover:text-foreground" href="mailto:mindful-spark-bot@mail.tin.computer">mindful-spark-bot@mail.tin.computer</a>.
       </p>
     </MarketingShell>
   );
