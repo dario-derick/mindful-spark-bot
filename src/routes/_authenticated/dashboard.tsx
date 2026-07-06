@@ -3,7 +3,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getDashboardData } from "@/lib/dashboard.functions";
 import { createMoodEntry, MOOD_LABEL, type MoodLevel } from "@/lib/mood.functions";
+import { updateOnboardingIntent, type OnboardingIntent } from "@/lib/profile.functions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { MoodPicker } from "@/components/MoodPicker";
 import {
   ResponsiveContainer,
@@ -17,9 +19,10 @@ import {
   Bar,
   Cell,
 } from "recharts";
-import { Flame, BookHeart, TrendingUp, Heart, Loader2 } from "lucide-react";
+import { Flame, BookHeart, TrendingUp, Heart, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { trackFirstCheckInCompleted } from "@/lib/analytics";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — MindTrackAI" }] }),
@@ -34,10 +37,43 @@ const MOOD_COLORS: Record<MoodLevel, string> = {
   very_low: "var(--color-chart-4)",
 };
 
+const CHECK_IN_INTENT_OPTIONS: {
+  label: string;
+  value: OnboardingIntent;
+  body: string;
+}[] = [
+  {
+    label: "Patterns in my moods",
+    value: "mood_patterns",
+    body: "See how your mood changes over time.",
+  },
+  {
+    label: "What lifts or drains me",
+    value: "energy_drivers",
+    body: "Notice activities, people, or situations that affect energy.",
+  },
+  {
+    label: "Stress that keeps showing up",
+    value: "recurring_stress",
+    body: "Name repeated pressure points without making them clinical labels.",
+  },
+  {
+    label: "How routines affect me",
+    value: "routine_signals",
+    body: "Connect sleep, habits, work, school, or rhythm to mood.",
+  },
+  {
+    label: "I'm not sure yet",
+    value: "not_sure",
+    body: "Keep the first check-in open and low pressure.",
+  },
+];
+
 function DashboardPage() {
   const qc = useQueryClient();
   const fetchDashboard = useServerFn(getDashboardData);
   const logMood = useServerFn(createMoodEntry);
+  const saveOnboardingIntent = useServerFn(updateOnboardingIntent);
 
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
@@ -57,6 +93,21 @@ function DashboardPage() {
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
+  const intentMutation = useMutation({
+    mutationFn: (v: { intent: OnboardingIntent; customText?: string }) =>
+      saveOnboardingIntent({
+        data: {
+          onboarding_intent: v.intent,
+          onboarding_intent_other_text: v.intent === "other" ? v.customText : null,
+        },
+      }),
+    onSuccess: () => {
+      toast.success("Check-in focus saved");
+      qc.invalidateQueries({ queryKey: ["dashboard"] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Failed to save focus"),
+  });
+
   if (isLoading || !data) {
     return (
       <div className="flex h-64 items-center justify-center text-muted-foreground">
@@ -65,12 +116,22 @@ function DashboardPage() {
     );
   }
 
+  const showIntentPrompt = !data.hasLoggedAnyMood && !data.profile?.onboarding_intent_selected_at;
+
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       <div>
         <h1 className="font-display text-3xl md:text-4xl">Today</h1>
         <p className="mt-1 text-sm text-muted-foreground">A gentle look at where you've been.</p>
       </div>
+
+      {showIntentPrompt && (
+        <CheckInIntentPrompt
+          saving={intentMutation.isPending}
+          onSubmit={(intent, customText) => intentMutation.mutate({ intent, customText })}
+          onSkip={() => intentMutation.mutate({ intent: "skipped" })}
+        />
+      )}
 
       {/* stats */}
       <div className="grid gap-4 md:grid-cols-4">
@@ -223,6 +284,123 @@ function DashboardPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+function CheckInIntentPrompt({
+  saving,
+  onSubmit,
+  onSkip,
+}: {
+  saving: boolean;
+  onSubmit: (intent: OnboardingIntent, customText?: string) => void;
+  onSkip: () => void;
+}) {
+  const [selected, setSelected] = useState<OnboardingIntent>("mood_patterns");
+  const [customText, setCustomText] = useState("");
+
+  const customSelected = selected === "other";
+
+  return (
+    <Card className="border-primary/30 bg-card-gradient shadow-soft">
+      <CardHeader>
+        <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
+          <Sparkles className="h-5 w-5" />
+        </div>
+        <CardTitle className="font-display text-2xl">Before your first check-in</CardTitle>
+        <CardDescription>
+          Choose what you want MindTrackAI to help you notice. Pick one for now, or skip and start
+          logging.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-5">
+        <div>
+          <h2 className="font-display text-xl">
+            What would you like help noticing about your week?
+          </h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {CHECK_IN_INTENT_OPTIONS.map((option) => {
+              const active = selected === option.value;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  disabled={saving}
+                  onClick={() => setSelected(option.value)}
+                  className={`rounded-xl border p-4 text-left transition-colors ${
+                    active
+                      ? "border-primary/70 bg-primary/15"
+                      : "border-border/60 bg-background/30 hover:border-primary/40"
+                  }`}
+                >
+                  <span className="block font-display text-base">{option.label}</span>
+                  <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                    {option.body}
+                  </span>
+                </button>
+              );
+            })}
+            <button
+              type="button"
+              disabled={saving}
+              onClick={() => setSelected("other")}
+              className={`rounded-xl border p-4 text-left transition-colors ${
+                customSelected
+                  ? "border-primary/70 bg-primary/15"
+                  : "border-border/60 bg-background/30 hover:border-primary/40"
+              }`}
+            >
+              <span className="block font-display text-base">Something else I want to notice</span>
+              <span className="mt-1 block text-sm leading-5 text-muted-foreground">
+                Keep it short. This is only to guide your private reflections.
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {customSelected && (
+          <div className="space-y-2">
+            <label className="text-sm font-medium" htmlFor="custom-intent">
+              Something else I want to notice
+            </label>
+            <Input
+              id="custom-intent"
+              value={customText}
+              maxLength={120}
+              disabled={saving}
+              onChange={(e) => setCustomText(e.target.value)}
+              placeholder="A pattern I want to understand..."
+            />
+            <p className="text-xs text-muted-foreground">
+              This text stays in your product profile and is not sent to analytics.
+            </p>
+          </div>
+        )}
+
+        <div className="rounded-xl border border-border/60 bg-background/30 p-4 text-xs leading-5 text-muted-foreground">
+          MindTrackAI is for private reflection, not diagnosis or professional mental health care.
+        </div>
+
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => onSubmit(selected, customText)}
+            className="inline-flex h-10 items-center justify-center rounded-md bg-aurora px-8 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:pointer-events-none disabled:opacity-50"
+          >
+            {saving ? "Saving..." : "Start my check-in"}
+          </button>
+          <button
+            type="button"
+            disabled={saving}
+            onClick={onSkip}
+            className="inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
+          >
+            Skip for now
+          </button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
