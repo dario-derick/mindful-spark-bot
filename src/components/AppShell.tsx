@@ -90,7 +90,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link to="/" className="transition-colors hover:text-foreground">Home</Link>
               <a href="#" className="transition-colors hover:text-foreground">Privacy</a>
               <a href="#" className="transition-colors hover:text-foreground">Terms</a>
-              <a href="mailto:hello@mindtrackai.app" className="transition-colors hover:text-foreground">Support</a>
+              <a href="mailto:mindful-spark-bot@mail.tin.computer" className="transition-colors hover:text-foreground">Support</a>
             </div>
           </div>
         </footer>
